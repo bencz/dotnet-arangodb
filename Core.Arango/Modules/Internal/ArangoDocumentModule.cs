@@ -100,7 +100,7 @@ namespace Core.Arango.Modules.Internal
             bool? silent = null, ArangoOverwriteMode? overwriteMode = null,
             CancellationToken cancellationToken = default)
         {
-            var res = await CreateManyAsync<T, TR>(database, collection, new List<T> { doc }, waitForSync, keepNull,
+            var res = await CreateManyAsync<T, TR>(database, collection, Enumerable.Repeat(doc, 1), waitForSync, keepNull,
                 mergeObjects,
                 returnOld, returnNew, silent, overwriteMode, cancellationToken).ConfigureAwait(false);
 
@@ -113,7 +113,7 @@ namespace Core.Arango.Modules.Internal
             bool? mergeObjects = null, bool? returnOld = null, bool? returnNew = null, bool? silent = null,
             ArangoOverwriteMode? overwriteMode = null, CancellationToken cancellationToken = default)
         {
-            var res = await CreateManyAsync<T, ArangoVoid>(database, collection, new List<T> { doc }, waitForSync,
+            var res = await CreateManyAsync<T, ArangoVoid>(database, collection, Enumerable.Repeat(doc, 1), waitForSync,
                 keepNull, mergeObjects,
                 returnOld, returnNew, silent, overwriteMode, cancellationToken);
 
@@ -264,7 +264,7 @@ namespace Core.Arango.Modules.Internal
             CancellationToken cancellationToken = default)
         {
             var res = await UpdateManyAsync<T, ArangoVoid>(database, collection,
-                new List<T> { doc }, waitForSync, keepNull, mergeObjects,
+                Enumerable.Repeat(doc, 1), waitForSync, keepNull, mergeObjects,
                 returnOld, returnNew, silent, ignoreRevs, cancellationToken).ConfigureAwait(false);
 
             return res.SingleOrDefault();
@@ -282,7 +282,7 @@ namespace Core.Arango.Modules.Internal
             CancellationToken cancellationToken = default)
         {
             var res = await UpdateManyAsync<T, TR>(database, collection,
-                new List<T> { doc }, waitForSync, keepNull, mergeObjects,
+                Enumerable.Repeat(doc, 1), waitForSync, keepNull, mergeObjects,
                 returnOld, returnNew, silent, ignoreRevs, cancellationToken).ConfigureAwait(false);
 
             return res?.SingleOrDefault();
@@ -337,7 +337,7 @@ namespace Core.Arango.Modules.Internal
             bool? ignoreRevs = null,
             CancellationToken cancellationToken = default)
         {
-            var res = await ReplaceManyAsync<T, TR>(database, collection, new List<T> { doc },
+            var res = await ReplaceManyAsync<T, TR>(database, collection, Enumerable.Repeat(doc, 1),
                 waitForSync, returnOld, returnNew, ignoreRevs, cancellationToken).ConfigureAwait(false);
 
             return res?.SingleOrDefault();
@@ -351,7 +351,7 @@ namespace Core.Arango.Modules.Internal
             bool? ignoreRevs = null,
             CancellationToken cancellationToken = default)
         {
-            var res = await ReplaceManyAsync<T, ArangoVoid>(database, collection, new List<T> { doc },
+            var res = await ReplaceManyAsync<T, ArangoVoid>(database, collection, Enumerable.Repeat(doc, 1),
                 waitForSync, returnOld, returnNew, ignoreRevs, cancellationToken).ConfigureAwait(false);
 
             return res?.SingleOrDefault();
